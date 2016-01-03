@@ -23,6 +23,11 @@
  */
 package org.kitteh.vanish;
 
+import com.google.inject.Inject;
+import org.spongepowered.api.Game;
+import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 
 /**
@@ -30,5 +35,14 @@ import org.spongepowered.api.plugin.Plugin;
  */
 @Plugin(id = "Vanish", name = "Vanish", version = "4.0.0-SNAPSHOT")
 public class Vanish {
-    // TODO: Write plugin.
+    public static final String PERMISSION_VANISH = "vanish.vanish";
+
+    @Inject
+    private Game game;
+
+    @Listener
+    public void onGameInit(GameInitializationEvent event) {
+        CommandSpec vanishCommandSpec = CommandSpec.builder().permission(PERMISSION_VANISH).executor(new VanishCommand()).build();
+        this.game.getCommandManager().register(this, vanishCommandSpec, "vanish", "v");
+    }
 }
