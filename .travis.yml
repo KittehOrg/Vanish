@@ -1,0 +1,16 @@
+language: java
+jdk:
+- oraclejdk8
+cache:
+  directories:
+    - $HOME/.m2
+notifications:
+  email: false
+deploy:
+  provider: releases
+  api_key:
+    secure: NeL83dPCuKAwbn8eNZ5iEwd8me8HtDuCMMewPmDvLdgYi+B9WrJYwdQitgeYc1opjQB/guZ+Wwdps5qqNzobkyUimnBgoELajEgm70oL4BRLaZZ+dGRQiq3mQC8eHS9LOi6n2eWwwhwNPzJfN/lsV8fKa9JPWY1Ir6/ElLbuSQPpuW08cLYPbK3wazihSBBpJ3Pmoy6fk3Zh2r1H1grRyA2TSETyOHOsIezFrYei1VZdrIhKU7WVVldNyxXOatUYMPcjne1rS5k99eQEHJRRWtg1aZ+wtNP5Vudney/r5C0QansZ++WLhJ1bkQYtoaykQxd1woYPaz7p5ybsmhvlzTqKqEUZElf2rl0Z6r/8QnDrTLXrrZXDzrg5N4rp8B/awlJF4Z1CWW5Ei5ak3XeaO8histG3juP0QiAIwYYSaVSfEazp/G5o6RXvvl/QPSmBFLwHB+BuCF1h1vySq8ZtEuqVAM5qcOXx/oEwZ+58bw7Kw6G45XBDifzNgTEFOkoY16Nx1M5jK3EtgAyIRAqzujzfmDuNQbLi5BPcV+xRIFHj6lr+a2p6pKRUkJKq9+2LXqCwhc5LXBRjICzvsAF4HuM5Jf8Asb7m3If8aLETESbh5hL9snhAaEpmUOx76GuRM50I4ofHncg80zuEBCMKHhzm0qy6kfp4GC9BbOG4qh8=
+  file: target/vanish.jar
+  skip-cleanup: true
+  on:
+    tags: true

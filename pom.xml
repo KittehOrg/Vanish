@@ -90,6 +90,7 @@
     </dependencies>
 
     <build>
+        <finalName>vanish</finalName>
         <defaultGoal>clean install</defaultGoal>
         <resources>
             <resource>
