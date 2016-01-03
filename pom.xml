@@ -65,13 +65,6 @@
         </repository>
     </repositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>kitteh-repo</id>
-            <url>http://repo.kitteh.org/content/groups/public</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencies>
         <dependency>
             <groupId>org.spongepowered</groupId>
