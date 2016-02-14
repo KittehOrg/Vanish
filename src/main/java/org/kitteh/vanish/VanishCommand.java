@@ -49,6 +49,8 @@ class VanishCommand implements CommandExecutor {
         Player player = (Player) commandSource;
         boolean wasVisible = player.get(Keys.INVISIBLE).orElse(false);
         player.offer(Keys.INVISIBLE, !wasVisible);
+        player.offer(Keys.INVISIBILITY_IGNORES_COLLISION, !wasVisible);
+        player.offer(Keys.INVISIBILITY_PREVENTS_TARGETING, !wasVisible);
         player.sendMessage(Text.of(TextColors.AQUA, "You are now " + (wasVisible ? "" : "in") + "visible"));
         return CommandResult.success();
     }
