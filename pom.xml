@@ -8,7 +8,7 @@
     <artifactId>vanish</artifactId>
 
     <name>Vanish</name>
-    <version>4.0.1</version>
+    <version>4.0.2-SNAPSHOT</version>
 
     <url>http://kitteh.org/</url>
     <properties>

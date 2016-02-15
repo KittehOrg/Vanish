@@ -33,7 +33,7 @@ import org.spongepowered.api.plugin.Plugin;
 /**
  * Spiritual successor to VanishNoPacket, for Sponge.
  */
-@Plugin(id = "Vanish", name = "Vanish", version = "4.0.1")
+@Plugin(id = "Vanish", name = "Vanish", version = "4.0.2-SNAPSHOT")
 public class Vanish {
     public static final String PERMISSION_VANISH = "vanish.vanish";
 
