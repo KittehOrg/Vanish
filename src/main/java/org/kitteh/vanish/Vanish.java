@@ -37,12 +37,14 @@ import org.spongepowered.api.plugin.Plugin;
 public class Vanish {
     public static final String PERMISSION_VANISH = "vanish.vanish";
 
+    public static final String PERMISSION_EFFECTS_BATS = "vanish.effects.bats";
+
     @Inject
     private Game game;
 
     @Listener
     public void onGameInit(GameInitializationEvent event) {
-        CommandSpec vanishCommandSpec = CommandSpec.builder().permission(PERMISSION_VANISH).executor(new VanishCommand()).build();
+        CommandSpec vanishCommandSpec = CommandSpec.builder().permission(PERMISSION_VANISH).executor(new VanishCommand(this)).build();
         this.game.getCommandManager().register(this, vanishCommandSpec, "vanish", "v");
     }
 }
