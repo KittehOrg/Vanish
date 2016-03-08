@@ -75,8 +75,8 @@ class VanishCommand implements CommandExecutor {
             for (int i = 0; i < 10; i++) {
                 location.getExtent().createEntity(EntityTypes.BAT, location.getPosition()).ifPresent(bat -> {
                     bats.add(bat);
-                    location.getExtent().spawnEntity(bat, Cause.of(bat)); // TODO actual causes once SpongeDocs match SpongeReality
-                    bat.offer(Keys.INVULNERABILITY, LIFE_TICKS);
+                    location.getExtent().spawnEntity(bat, Cause.builder().owner(this.plugin).build()); // TODO Am I doing this right?
+                    bat.offer(Keys.INVULNERABILITY_TICKS, LIFE_TICKS);
                 });
             }
             // TODO remove on shutdown too!
