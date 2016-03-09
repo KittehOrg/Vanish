@@ -36,6 +36,8 @@ import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.cause.entity.spawn.SpawnCause;
+import org.spongepowered.api.event.cause.entity.spawn.SpawnTypes;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
@@ -75,7 +77,7 @@ class VanishCommand implements CommandExecutor {
             for (int i = 0; i < 10; i++) {
                 location.getExtent().createEntity(EntityTypes.BAT, location.getPosition()).ifPresent(bat -> {
                     bats.add(bat);
-                    location.getExtent().spawnEntity(bat, Cause.builder().owner(this.plugin).build()); // TODO Am I doing this right?
+                    location.getExtent().spawnEntity(bat, Cause.source(SpawnCause.builder().type(SpawnTypes.PLUGIN).build()).owner(this.plugin).build());
                     bat.offer(Keys.INVULNERABILITY_TICKS, LIFE_TICKS);
                 });
             }
