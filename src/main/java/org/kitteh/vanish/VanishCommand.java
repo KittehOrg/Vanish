@@ -79,6 +79,7 @@ class VanishCommand implements CommandExecutor {
                     bats.add(bat);
                     location.getExtent().spawnEntity(bat, Cause.source(SpawnCause.builder().type(SpawnTypes.PLUGIN).build()).owner(this.plugin).build());
                     bat.offer(Keys.INVULNERABILITY_TICKS, LIFE_TICKS);
+                    bat.offer(Keys.PERSISTS, false);
                 });
             }
             // TODO remove on shutdown too!
