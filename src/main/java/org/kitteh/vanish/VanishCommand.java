@@ -51,11 +51,13 @@ import java.util.Set;
  */
 class VanishCommand implements CommandExecutor {
     private final Vanish plugin;
+    private final Cause batCause;
     private final ParticleEffect effect;
     private static final int LIFE_TICKS = 3 * 20;
 
     VanishCommand(Vanish plugin) {
         this.plugin = plugin;
+        this.batCause = Cause.source(SpawnCause.builder().type(SpawnTypes.PLUGIN).build()).owner(this.plugin).build();
         this.effect = ParticleEffect.builder().type(ParticleTypes.SMOKE_LARGE).count(1).build();
     }
 
@@ -77,7 +79,7 @@ class VanishCommand implements CommandExecutor {
             for (int i = 0; i < 10; i++) {
                 location.getExtent().createEntity(EntityTypes.BAT, location.getPosition()).ifPresent(bat -> {
                     bats.add(bat);
-                    location.getExtent().spawnEntity(bat, Cause.source(SpawnCause.builder().type(SpawnTypes.PLUGIN).build()).owner(this.plugin).build());
+                    location.getExtent().spawnEntity(bat, this.batCause);
                     bat.offer(Keys.INVULNERABILITY_TICKS, LIFE_TICKS);
                     bat.offer(Keys.PERSISTS, false);
                 });
