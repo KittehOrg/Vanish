@@ -39,6 +39,30 @@ public class Vanish {
 
     public static final String PERMISSION_EFFECTS_BATS = "vanish.effects.bats";
 
+    /**
+     * Sometimes, people make mistakes like trying to run a plugin.
+     */
+    public static class Main {
+        /**
+         * Let's tell them just how wrong they are.
+         *
+         * @param args maybe they'll be argumentative about it later
+         */
+        public static void main(String[] args) {
+            System.out.println();
+            System.out.println("    Meow!  :3");
+            System.out.println();
+            System.out.println();
+            System.out.println("This is a Sponge plugin. Not something to be run by itself!");
+            System.out.println();
+            System.out.println("    To use this plugin, you need to have Sponge.");
+            System.out.println();
+            System.out.println("     https://www.spongepowered.org");
+            System.out.println();
+            System.out.println();
+        }
+    }
+
     @Inject
     private Game game;
 
