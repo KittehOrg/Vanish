@@ -38,6 +38,7 @@ public class Vanish {
     public static final String PERMISSION_VANISH = "vanish.vanish";
 
     public static final String PERMISSION_EFFECTS_BATS = "vanish.effects.bats";
+    public static final String PERMISSION_EFFECTS_CATS = "vanish.effects.cats";
 
     /**
      * Sometimes, people make mistakes like trying to run a plugin.
