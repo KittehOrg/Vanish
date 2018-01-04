@@ -30,10 +30,7 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 
-/**
- * Spiritual successor to VanishNoPacket, for Sponge.
- */
-@Plugin(id = "vanish", name = "Vanish", version = "4.0.4-SNAPSHOT")
+@Plugin(id = "vanish", name = "Vanish", version = "4.1.0-SNAPSHOT", description = "Spiritual successor to VanishNoPacket.")
 public class Vanish {
     public static final String PERMISSION_VANISH = "vanish.vanish";
 
@@ -69,7 +66,10 @@ public class Vanish {
 
     @Listener
     public void onGameInit(GameInitializationEvent event) {
-        CommandSpec vanishCommandSpec = CommandSpec.builder().permission(PERMISSION_VANISH).executor(new VanishCommand(this)).build();
+        CommandSpec vanishCommandSpec = CommandSpec.builder()
+                .permission(PERMISSION_VANISH)
+                .executor(new VanishCommand(this))
+                .build();
         this.game.getCommandManager().register(this, vanishCommandSpec, "vanish", "v");
     }
 }

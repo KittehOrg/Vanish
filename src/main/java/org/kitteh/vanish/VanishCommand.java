@@ -23,6 +23,7 @@
  */
 package org.kitteh.vanish;
 
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -39,26 +40,25 @@ import javax.annotation.Nonnull;
  * Vanish!
  */
 class VanishCommand implements CommandExecutor {
-    private final Vanish plugin;
+
     private final VanishEntitySpawnEffects entitySpawnEffects;
 
     VanishCommand(Vanish plugin) {
-        this.plugin = plugin;
         this.entitySpawnEffects = new VanishEntitySpawnEffects(plugin);
+        Sponge.getEventManager().registerListeners(plugin, this.entitySpawnEffects);
     }
 
     @Nonnull
     @Override
     public CommandResult execute(@Nonnull CommandSource commandSource, @Nonnull CommandContext commandContext) throws CommandException {
         if (!(commandSource instanceof Player)) {
-            commandSource.sendMessage(Text.of(TextColors.RED, "Vanish currently can only be used by players"));
-            return CommandResult.empty();
+            throw new CommandException(Text.of(TextColors.RED, "Vanish currently can only be used by players"));
         }
         Player player = (Player) commandSource;
-        boolean wasVisible = player.get(Keys.INVISIBLE).orElse(false);
-        player.offer(Keys.INVISIBLE, !wasVisible);
-        player.offer(Keys.INVISIBILITY_IGNORES_COLLISION, !wasVisible);
-        player.offer(Keys.INVISIBILITY_PREVENTS_TARGETING, !wasVisible);
+        boolean wasVisible = player.get(Keys.VANISH).orElse(false);
+        player.offer(Keys.VANISH, !wasVisible);
+        player.offer(Keys.VANISH_IGNORES_COLLISION, !wasVisible);
+        player.offer(Keys.VANISH_PREVENTS_TARGETING, !wasVisible);
 
         this.entitySpawnEffects.applySpawnEffect(player);
 

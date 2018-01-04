@@ -32,10 +32,8 @@ import org.spongepowered.api.entity.EntityType;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.entity.spawn.SpawnCause;
-import org.spongepowered.api.event.cause.entity.spawn.SpawnTypes;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -57,9 +55,6 @@ public class VanishEntitySpawnEffects {
     // The number of entities to spawn.
     private static final int NUM_ENTITIES = 10;
 
-    // The Cause for spawning the entities.
-    private final Cause entityCause;
-
     // The ParticleEffect used when spawning entities.
     private final ParticleEffect effect;
 
@@ -74,9 +69,7 @@ public class VanishEntitySpawnEffects {
 
     VanishEntitySpawnEffects(Vanish plugin) {
         this.plugin = plugin;
-        this.entityCause = Cause.source(SpawnCause.builder().type(SpawnTypes.PLUGIN).build())
-                .owner(this.plugin).build();
-        this.effect = ParticleEffect.builder().type(ParticleTypes.SMOKE_LARGE).count(1).build();
+        this.effect = ParticleEffect.builder().type(ParticleTypes.LARGE_SMOKE).quantity(1).build();
 
         // Set up permissions/entities map.
         this.permEntityMap.put(Vanish.PERMISSION_EFFECTS_BATS, EntityTypes.BAT);
@@ -99,26 +92,26 @@ public class VanishEntitySpawnEffects {
         for (String permission : this.permEntityMap.keySet()) {
             if (player.hasPermission(permission)) {
                 for (int i = 0; i < NUM_ENTITIES; i++) {
-                    location.getExtent().createEntity(this.permEntityMap.get(permission), location.getPosition())
-                            .ifPresent(entity -> {
-                                ourEntities.add(entity);
-                                this.allEntities.add(entity);
-                                location.getExtent().spawnEntity(entity, this.entityCause);
+                    Entity entity = location.createEntity(this.permEntityMap.get(permission));
 
-                                // Entities should be invulnerable for the duration of time that they'll be alive.
-                                entity.offer(Keys.INVULNERABILITY_TICKS, LIFE_TICKS);
+                    // Entities should be invulnerable for the duration of time that they'll be alive.
+                    entity.offer(Keys.INVULNERABILITY_TICKS, LIFE_TICKS);
+                    entity.offer(Keys.INVULNERABLE, true);
 
-                                // Entities should despawn if players move far enough away.
-                                entity.offer(Keys.PERSISTS, false);
-                            });
+                    // Entities should despawn if players move far enough away.
+                    entity.offer(Keys.PERSISTS, false);
+
+                    ourEntities.add(entity);
+                    this.allEntities.add(entity);
                 }
             }
         }
 
         // Schedule cleanup for later.
-        Sponge.getScheduler().createTaskBuilder().delayTicks(LIFE_TICKS).execute(() -> {
-            this.removeEntities(ourEntities);
-        }).submit(this.plugin);
+        Task.builder()
+                .delayTicks(LIFE_TICKS)
+                .execute(() -> this.removeEntities(ourEntities))
+                .submit(this.plugin);
     }
 
     @Listener
