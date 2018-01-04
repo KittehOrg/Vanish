@@ -23,7 +23,6 @@
  */
 package org.kitteh.vanish;
 
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -45,7 +44,6 @@ class VanishCommand implements CommandExecutor {
 
     VanishCommand(Vanish plugin) {
         this.entitySpawnEffects = new VanishEntitySpawnEffects(plugin);
-        Sponge.getEventManager().registerListeners(plugin, this.entitySpawnEffects);
     }
 
     @Nonnull
@@ -56,6 +54,7 @@ class VanishCommand implements CommandExecutor {
         }
         Player player = (Player) commandSource;
         boolean wasVisible = player.get(Keys.VANISH).orElse(false);
+        player.offer(Keys.INVISIBLE, !wasVisible);
         player.offer(Keys.VANISH, !wasVisible);
         player.offer(Keys.VANISH_IGNORES_COLLISION, !wasVisible);
         player.offer(Keys.VANISH_PREVENTS_TARGETING, !wasVisible);
