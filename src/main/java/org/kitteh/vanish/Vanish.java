@@ -30,7 +30,7 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 
-@Plugin(id = "vanish", name = "Vanish", version = "4.1.0-SNAPSHOT", description = "Spiritual successor to VanishNoPacket.")
+@Plugin(id = "vanish", name = "Vanish", version = "4.1.1", description = "Spiritual successor to VanishNoPacket.")
 public class Vanish {
     public static final String PERMISSION_VANISH = "vanish.vanish";
 
